@@ -7,12 +7,12 @@
 #define IDS_APP_TITLE                   103
 #define IDD_ABOUTBOX                    103
 #define IDM_ABOUT                       104
+#define IDS_START                       104
 #define IDM_EXIT                        105
 #define IDI_GALAGALIKE                  107
 #define IDI_SMALL                       108
 #define IDC_GALAGALIKE                  109
 #define IDR_MAINFRAME                   128
-#define IDD_DIALOG1                     129
 #define IDD_START                       129
 #define IDC_STATIC                      -1
 

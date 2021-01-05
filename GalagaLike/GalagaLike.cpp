@@ -1,9 +1,10 @@
 ﻿// Galaglike.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
-
 #include "framework.h"
 #include "GalagaLike.h"
 #include "resource.h"
+#include "Game.h"
+#include <thread>
 
 #define MAX_LOADSTRING 100
 #define ID_TIMER 101
@@ -13,6 +14,9 @@ HINSTANCE g_hInst;    // 현재 인스턴스입니다.
 HWND g_hWnd;
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
+WCHAR szStart[MAX_LOADSTRING];
+
+Game TheGame;
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -34,6 +38,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_GALAGALIKE, szWindowClass, MAX_LOADSTRING);
+    LoadStringW(hInstance, IDS_START, szStart, MAX_LOADSTRING);
     MyRegisterClass(hInstance);
 
     // 애플리케이션 초기화를 수행합니다:
@@ -45,6 +50,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_GALAGALIKE));
 
     MSG msg;
+
+    bool bProgramRunning = true;
 
     // 기본 메시지 루프입니다:
     while (GetMessage(&msg, nullptr, 0, 0))
@@ -139,6 +146,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+    case WM_KEYDOWN:
+        switch (wParam) {
+        case VK_LEFT:
+            TheGame.MoveDirection(Game::EDIRECTION::LEFT);
+            break;
+        case VK_RIGHT:
+            TheGame.MoveDirection(Game::EDIRECTION::RIGHT);
+            break;
+        case 0x5A: //z키 누르면 미사일.
+            TheGame.GenerateMissile(TheGame);
+            break;
+        case VK_ESCAPE:
+            TheGame.TogglePause(false);
+            break;
+        }
+        return 0;
     case WM_COMMAND:
     {
         int wmId = LOWORD(wParam);
@@ -156,6 +179,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         }
     }
     break;
+
+    //timer는 적들의 느린 움직임 Timer1과 총알이 있다면 빠른 움직임 Timer2로 두 case
+    case WM_TIMER:
+
     case WM_PAINT:
     {
         PAINTSTRUCT ps;
@@ -180,12 +207,14 @@ INT_PTR CALLBACK Start(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
     switch (message)
     {
     case WM_INITDIALOG:
+        SetWindowText(hDlg, szStart);
         return (INT_PTR)TRUE;
     case WM_COMMAND:
         switch (wParam) {
         case IDOK:
             SetTimer(g_hWnd, ID_TIMER, 500, NULL);
             EndDialog(hDlg, LOWORD(wParam));
+            TheGame.InitializeGame();
             return (INT_PTR)TRUE;
         case IDCANCEL:
             EndDialog(hDlg, LOWORD(wParam));

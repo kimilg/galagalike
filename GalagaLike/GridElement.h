@@ -16,6 +16,8 @@ public:
 	void AddX(const int x) noexcept;
 	void AddY(const int y) noexcept;
 
+	void SetActive(const bool bAlive) noexcept { mAlive = true; }
+	bool GetActive() const noexcept { return mAlive; }
 
 private:
 	int mX;
