@@ -1,7 +1,2 @@
 ﻿  Game.cpp
-C:\Users\ilgoo\Documents\git\GalagaLike\GalagaLike\GridElement.h(12,15): error C3646: 'GetXY': 알 수 없는 재정의 지정자입니다.
-C:\Users\ilgoo\Documents\git\GalagaLike\GalagaLike\GridElement.h(12,15): error C2059: 구문 오류: '('
-C:\Users\ilgoo\Documents\git\GalagaLike\GalagaLike\GridElement.h(12,24): error C2334: '{' 앞에 예기치 않은 토큰이 있습니다. 명백한 함수 본문을 건너뜁니다.
-  GridElement.cpp
-C:\Users\ilgoo\Documents\git\GalagaLike\GalagaLike\Game.h(26,15): error C2079: 'Game::m_MyPlane'은(는) 정의되지 않은 class 'GridElem'을(를) 사용합니다.
-  코드를 생성하고 있습니다...
+  GalagaLike.vcxproj -> C:\Users\ilgoo\Documents\git\GalagaLike\Debug\GalagaLike.exe

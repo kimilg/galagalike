@@ -1,7 +1,6 @@
 #pragma once
-#include <utility>
-#include <vector>
 #include "GridElement.h"
+#include <vector>
 
 constexpr int GRIDSIZE = 50;
 typedef std::pair<int, int> IntPair;
@@ -23,7 +22,7 @@ public:
 
 private:
 	std::vector<GridElem>	 m_Enemies;
-	GridElem				 m_MyPlane;
+	GridElem*				 m_MyPlane;
 	bool					 m_Initialized;
 	int						 m_Score;
 	EDIRECTION				 m_eDirection;

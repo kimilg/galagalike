@@ -7,8 +7,8 @@ Game::Game() :
 	m_GameRunning(false)
 {}
 
-void Game::SetMyPlane(const GridElem GElem) {
-	m_MyPlane = GElem;
+void Game::SetMyPlane(GridElem GElem) {
+	m_MyPlane = &GElem;
 }
 
 void Game::InitializeGame() {

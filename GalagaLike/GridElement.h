@@ -1,6 +1,8 @@
 #pragma once
-#include<utility>
 #include "Game.h"
+#include <utility>
+
+typedef std::pair<int, int> IntPair;
 
 class GridElem {
 public:
